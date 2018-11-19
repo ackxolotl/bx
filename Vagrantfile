@@ -70,7 +70,7 @@ Vagrant.configure("2") do |config|
     mv /tmp/get_flag /bin/get_flag
     chmod +x /bin/get_flag
     apt-get update
-    apt-get dist-upgrade -y
+    DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
     apt-get install -y vim gdb git python3 python3-dev python3-pip rubygems strace
     git clone https://github.com/pwndbg/pwndbg /home/vagrant/.pwndbg
     /home/vagrant/.pwndbg/setup.sh
