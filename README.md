@@ -4,7 +4,9 @@
 
 ## Usage
 
-Install [Vagrant](https://www.vagrantup.com/intro/getting-started/install.html) and a backend provider like [VirtualBox](https://www.virtualbox.org/wiki/Downloads). Put `Vagrantfile` next to your pwning tasks and run `vagrant up`.
+Install [Vagrant](https://www.vagrantup.com/intro/getting-started/install.html) and a backend provider like [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+Put `Vagrantfile` next to your pwning tasks and run `vagrant up`.
+SSH into the VM with `vagrant ssh`.
 
 ## Tools
 
