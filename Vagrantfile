@@ -61,8 +61,6 @@ Vagrant.configure("2") do |config|
 	# View the documentation for the provider you are using for more
 	# information on available options.
 
-	config.vm.provision "file", source: "get_flag", destination: "/tmp/get_flag"
-
 	# Enable provisioning with a shell script. Additional provisioners such as
 	# Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
 	# documentation for more information about their specific syntax and use.
