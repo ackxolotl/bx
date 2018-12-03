@@ -70,7 +70,7 @@ Vagrant.configure("2") do |config|
 		apt-get update
 		DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
 
-		apt-get install -y vim gdb git python3 python3-dev python3-pip rubygems strace
+		apt-get install -y vim gdb git python3 python3-dev python3-pip rubygems strace ltrace
 
 		wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u9_amd64.deb -O /tmp/libssl1.0.0.deb
 		dpkg --install /tmp/libssl1.0.0.deb
