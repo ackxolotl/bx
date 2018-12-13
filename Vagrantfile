@@ -65,8 +65,6 @@ Vagrant.configure("2") do |config|
 	# Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
 	# documentation for more information about their specific syntax and use.
 	config.vm.provision "shell", inline: <<-SHELL
-		HOME=$PWD
-
 		apt-get update
 		DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
 
@@ -75,22 +73,25 @@ Vagrant.configure("2") do |config|
 		wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u9_amd64.deb -O /tmp/libssl1.0.0.deb
 		dpkg --install /tmp/libssl1.0.0.deb
 
-		git clone https://github.com/pwndbg/pwndbg $HOME/.pwndbg
-		$HOME/.pwndbg/setup.sh
-		pip3 install -r $HOME/.pwndbg/requirements.txt
-		echo "source ~/.pwndbg/gdbinit.py" > $HOME/.gdbinit
+		gem install one_gadget
+
+		pip3 install --upgrade git+https://github.com/sashs/Ropper.git
+
+		git clone https://github.com/pwndbg/pwndbg .pwndbg
+		.pwndbg/setup.sh
+		pip3 install -r .pwndbg/requirements.txt
+		echo "source ~/.pwndbg/gdbinit.py" > .gdbinit
 
 		pip3 install --upgrade git+https://github.com/arthaud/python3-pwntools.git
-		pip3 install --upgrade git+https://github.com/sashs/Ropper.git
-		gem install one_gadget
 
 		cat <<-EOF | gcc -o get_flag -xc -
 		#include <stdio.h>
 
 		int main()
 		{
-			FILE* fp;
+			FILE *fp;
 			long unsigned int flag[0x2];
+
 			fp = fopen("/dev/urandom", "r");
 			fread(flag, sizeof(flag), 1, fp);
 			fclose(fp);
@@ -99,10 +100,10 @@ Vagrant.configure("2") do |config|
 		}
 		EOF
 
-		mv $HOME/get_flag /bin/get_flag
+		mv get_flag /bin/get_flag
 		chmod +x /bin/get_flag
 
-		ln -s /vagrant $HOME/bx
+		ln -s /vagrant bx
 		chown -R -h vagrant:vagrant bx .gdbinit .pwndbg/
 
 		reboot
